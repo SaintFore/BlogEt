@@ -37,6 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 第三方应用
+    'rest_framework', # Django REST framework 用于构建 API
+    'corsheaders', # Django CORS headers 用于处理跨域请求
+
+    # 自定义应用
+    'backend.blog', # 博客应用
 ]
 
 MIDDLEWARE = [
