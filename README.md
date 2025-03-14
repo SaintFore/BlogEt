@@ -9,7 +9,15 @@ frontend/
 │   ├── assets/         # 图片、图标等静态资源
 │   ├── components/     # 可复用组件
 │   │   ├── common/     # 通用组件（按钮、输入框等）
+|   |   |   ├── Button.js
+|   |   |   ├── Input.js
+│   │   |   ├── Modal.js
+│   │   |   └── Card.js
 │   │   ├── layout/     # 布局组件（导航栏、页脚等）
+│   │   |   ├── Navbar.js
+│   │   |   ├── Footer.js
+│   │   |   ├── Sidebar.js
+│   │   |   └── Layout.js
 │   │   └── blog/       # 博客相关组件
 │   ├── hooks/          # 自定义React hooks
 │   ├── pages/          # 页面组件
