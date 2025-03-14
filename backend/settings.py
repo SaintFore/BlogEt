@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -128,3 +129,40 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 语言和时区设置
+LANGUAGE_CODE = 'zh-hans'  # 设置为中文 这里是设置网站的默认语言
+TIME_ZONE = 'Asia/Shanghai'  # 设置为中国时区
+USE_I18N = True # 使用国际化
+USE_L10N = True # 使用本地化
+USE_TZ = True # 使用时区
+
+# 静态文件设置
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+# 媒体文件设置
+MEDIA_URL = '/media/' # 媒体文件访问路径，这是用户上传的文件的URL前缀
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 这是物理路径，用户上传的文件存储的位置
+
+# DRF设置 用于配置REST framework 应用的默认设置
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
+# CORS设置
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # 添加CORS中间件（必须放在第一位）
+    # ... 其他中间件 ...
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React前端地址
+]
