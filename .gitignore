@@ -3,6 +3,8 @@ Plan.md
 # Python
 __pycache__/
 
+# Django
+db.sqlite3
 
 # IDE
 .vscode/
