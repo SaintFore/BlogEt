@@ -8,6 +8,7 @@ db.sqlite3
 
 # React
 node_modules/
+/frontend/build
 
 # IDE
 .vscode/
