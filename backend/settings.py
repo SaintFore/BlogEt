@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'backend.blog', # 博客应用
 ]
 
+# 中间件设置
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # 添加CORS中间件（必须放在第一位）
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -110,39 +112,29 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 # 语言和时区设置
+
 LANGUAGE_CODE = 'zh-hans'  # 设置为中文 这里是设置网站的默认语言
 TIME_ZONE = 'Asia/Shanghai'  # 设置为中国时区
 USE_I18N = True # 使用国际化
 USE_L10N = True # 使用本地化
 USE_TZ = True # 使用时区
 
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.1/howto/static-files/
 # 静态文件设置
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-]
+] # 用于存放静态文件的目录
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 媒体文件设置
 MEDIA_URL = '/media/' # 媒体文件访问路径，这是用户上传的文件的URL前缀
@@ -157,11 +149,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
-# CORS设置
-MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # 添加CORS中间件（必须放在第一位）
-    # ... 其他中间件 ...
-]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React前端地址
