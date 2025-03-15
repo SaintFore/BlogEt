@@ -34,3 +34,22 @@ frontend/
 │   ├── index.js        # 入口文件
 │   └── routes.js       # 路由配置
 ```
+
+## ✨ BackEnd Struture
+
+```
+backend\                    # Django后端项目根目录
+├── blog\                   # 博客应用
+│   ├── __init__.py
+│   ├── admin.py            # 管理界面配置
+│   ├── apps.py
+│   ├── models.py           # 数据库模型定义
+│   ├── serializers.py      # DRF序列化器
+│   ├── tests.py
+│   ├── urls.py             # 应用URL路由配置
+│   └── views.py            # API视图和逻辑
+├── asgi.py                 # ASGI应用入口
+├── urls.py                 # 项目主URL配置
+└── settings.py             # 项目设置(数据库、中间件等)
+
+```
