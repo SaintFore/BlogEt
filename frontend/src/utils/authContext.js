@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
+
 
   // 初始化认证状态
   useEffect(() => {
@@ -36,7 +36,6 @@ export const AuthProvider = ({ children }) => {
       const response = await blogApi.login(credentials);
       authUtils.setAuthTokens(response.data.access, response.data.refresh);
       setUser(response.data.user);
-      navigate('/');
       return true;
     } catch (err) {
       setError(err.response?.data?.detail || '登录失败。请检查您的凭据。');
@@ -78,7 +77,6 @@ export const AuthProvider = ({ children }) => {
     } finally {
       authUtils.clearAuthTokens();
       setUser(null);
-      navigate('/login');
     }
   };
 
