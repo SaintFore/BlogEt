@@ -44,11 +44,29 @@ INSTALLED_APPS = [
     'rest_framework', # Django REST framework 用于构建 API
     'corsheaders', # Django CORS headers 用于处理跨域请求
     'rest_framework_simplejwt', # JWT认证
+    'drf_spectacular', # OpenAPI 3.0 规范
 
     # 自定义应用
     'backend.blog', # 博客应用
     'backend.accounts', # 用户应用
 ]
+
+# drf-spectacular 配置
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'BlogEt API',
+    'DESCRIPTION': 'BlogEt 博客系统 API 文档',
+    'VERSION': '1.0.0',
+        'SERVE_INCLUDE_SCHEMA': False,  # 这会隐藏 API 中的 schema 端点
+    
+    # 可选的更多配置选项
+    'SWAGGER_UI_SETTINGS': {
+        'deepLinking': True,  # 允许链接到指定操作
+        'persistAuthorization': True,  # 保存授权数据
+        'displayOperationId': False,
+    },
+    'COMPONENT_SPLIT_REQUEST': True,
+    'COMPONENT_NO_READ_ONLY_REQUIRED': False,
+}
 
 # 中间件设置
 MIDDLEWARE = [
@@ -152,8 +170,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication', # JWT认证
         'rest_framework.authentication.SessionAuthentication', # 用于浏览器API测试
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema', # 使用drf-spectacular的AutoSchema
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', # 分页设置
+    'PAGE_SIZE': 10 # 每页显示10条数据
 }
 
 # JWT配置
