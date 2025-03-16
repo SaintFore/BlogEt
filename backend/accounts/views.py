@@ -73,7 +73,7 @@ class PasswordResetView(generics.GenericAPIView):
                 user = User.objects.get(email=email)
                 current_site = get_current_site(request)
                 mail_subject = '重置您的密码'
-                message = render_to_string('accounts/password_reset_email.html', {
+                message = render_to_string('/password_reset_email.html', {
                     'user': user,
                     'domain': current_site.domain,
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
