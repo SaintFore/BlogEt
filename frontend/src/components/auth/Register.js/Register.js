@@ -3,13 +3,17 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../utils/AuthContext';
 import './Auth.css';
 
-const Login = () => {
+const Register = () => {
   const [formData, setFormData] = useState({
     username: '',
-    password: ''
+    email: '',
+    password: '',
+    password2: '',
+    first_name: '',
+    last_name: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login, error } = useAuth();
+  const { register, error } = useAuth();
 
   const handleChange = (e) => {
     setFormData({
@@ -21,18 +25,40 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await login(formData);
+    await register(formData);
     setIsSubmitting(false);
   };
 
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h2>登录</h2>
-        {error && <div className="auth-error">{error}</div>}
+        <h2>注册账户</h2>
+        {error && <div className="auth-error" style={{ whiteSpace: 'pre-line' }}>{error}</div>}
         <form onSubmit={handleSubmit}>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="first_name">名</label>
+              <input
+                type="text"
+                id="first_name"
+                name="first_name"
+                value={formData.first_name}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="last_name">姓</label>
+              <input
+                type="text"
+                id="last_name"
+                name="last_name"
+                value={formData.last_name}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
           <div className="form-group">
-            <label htmlFor="username">用户名</label>
+            <label htmlFor="username">用户名 <span className="required">*</span></label>
             <input
               type="text"
               id="username"
@@ -43,7 +69,18 @@ const Login = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">密码</label>
+            <label htmlFor="email">电子邮箱 <span className="required">*</span></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">密码 <span className="required">*</span></label>
             <input
               type="password"
               id="password"
@@ -53,21 +90,31 @@ const Login = () => {
               required
             />
           </div>
+          <div className="form-group">
+            <label htmlFor="password2">确认密码 <span className="required">*</span></label>
+            <input
+              type="password"
+              id="password2"
+              name="password2"
+              value={formData.password2}
+              onChange={handleChange}
+              required
+            />
+          </div>
           <button 
             type="submit" 
             className="auth-button" 
             disabled={isSubmitting}
           >
-            {isSubmitting ? '登录中...' : '登录'}
+            {isSubmitting ? '注册中...' : '注册'}
           </button>
         </form>
         <div className="auth-links">
-          <Link to="/register">没有账户？注册</Link>
-          <Link to="/reset-password">忘记密码？</Link>
+          <Link to="/login">已有账户？登录</Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;
