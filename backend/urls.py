@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +27,9 @@ urlpatterns = [
     path('api/auth/', include('backend.accounts.urls')),
     # 添加 DRF 认证 URL (浏览 API 时的登录页面)
     path('api-auth/', include('rest_framework.urls')),
+
+    # 添加API文档作为首页
+    path('', include_docs_urls(title='BlogEt API', description='BlogEt 博客系统 API 文档')),
 ]
 
 # 为开发环境添加媒体文件服务
