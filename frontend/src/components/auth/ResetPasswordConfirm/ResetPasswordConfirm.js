@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../utils/AuthContext';
+import { useAuth } from '../../../utils/AuthContext';
 import './ResetPasswordConfirm.css';
 
 const ResetPasswordConfirm = () => {
