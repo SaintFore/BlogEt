@@ -16,6 +16,7 @@ from .serializers import (
     LoginSerializer
 )
 from .tokens import account_activation_token
+from django.conf import settings
 
 
 class RegisterView(generics.CreateAPIView):
@@ -71,11 +72,12 @@ class PasswordResetView(generics.GenericAPIView):
             email = serializer.validated_data["email"]
             try:
                 user = User.objects.get(email=email)
-                current_site = get_current_site(request)
+                 # 从配置中获取前端 URL
+                frontend_url = settings.FRONTEND_URL
                 mail_subject = '重置您的密码'
-                message = render_to_string('/password_reset_email.html', {
+                message = render_to_string('password_reset_email.html', {
                     'user': user,
-                    'domain': current_site.domain,
+                    'domain': frontend_url.replace("http://", "").replace("https://", ""), # 仅需要域名部分
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': account_activation_token.make_token(user),
                     'protocol': 'https' if request.is_secure() else 'http'

@@ -214,3 +214,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # 开发时使
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React前端地址
 ]
+
+# 前端地址
+FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
