@@ -83,7 +83,7 @@ class PasswordResetView(generics.GenericAPIView):
                     'protocol': 'https' if request.is_secure() else 'http'
                 })
                 send_mail(mail_subject, message, 'noreply@example.com', [email])
-                return Response({"detail": "密码重置邮件已发送"}, status=status.HTTP_200_OK)
+                
             except User.DoesNotExist:
                 pass  # 为了安全考虑，即使用户不存在也返回成功消息
             

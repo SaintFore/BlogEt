@@ -63,14 +63,6 @@ class PasswordResetSerializer(serializers.Serializer):
     """密码重置邮件序列化器"""
     email = serializers.EmailField(required=True)
 
-    def validate_email(self, value):
-        # 验证邮箱是否存在
-        try:
-            user = User.objects.get(email=value)
-        except User.DoesNotExist:
-            raise serializers.ValidationError("该邮箱不存在")
-        return value
-
 
 class PasswordResetConfirmSerializer(serializers.Serializer):
     """密码重置确认序列化器"""
