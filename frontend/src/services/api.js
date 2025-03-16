@@ -59,16 +59,16 @@ api.interceptors.response.use(
 // 封装API请求
 export const blogApi = {
   // 用户认证
-  login: (credentials) => api.post('/auth/login/', credentials),
-  register: (userData) => api.post('/auth/register/', userData),
+  login: (credentials) => api.post('/login/', credentials),
+  register: (userData) => api.post('/register/', userData),
   logout: () => {
     const refreshToken = localStorage.getItem('refreshToken');
-    return api.post('/auth/logout/', { refresh: refreshToken });
+    return api.post('/logout/', { refresh: refreshToken });
   },
-  resetPassword: (email) => api.post('/auth/password-reset/', { email }),
-  resetPasswordConfirm: (data) => api.post('/auth/password-reset-confirm/', data),
-  getCurrentUser: () => api.get('/auth/me/'),
-  refreshToken: (refresh) => api.post('/auth/token/refresh/', { refresh }),
+  resetPassword: (email) => api.post('/password-reset/', { email }),
+  resetPasswordConfirm: (data) => api.post('/password-reset-confirm/', data),
+  getCurrentUser: () => api.get('/me/'),
+  refreshToken: (refresh) => api.post('/token/refresh/', { refresh }),
   
   // 获取博客文章列表
   getPosts: (page = 1) => api.get(`/posts/?page=${page}`),

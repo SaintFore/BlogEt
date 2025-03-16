@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('backend.blog.urls')),
     # 添加用户认证URL
-    path('api/auth/', include('backend.accounts.urls')),
+    path('api/', include('backend.accounts.urls')),
     # 添加 DRF 认证 URL (浏览 API 时的登录页面)
     path('api-auth/', include('rest_framework.urls')),
 
