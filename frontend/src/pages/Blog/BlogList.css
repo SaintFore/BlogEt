@@ -1,0 +1,184 @@
+.blog-list-page {
+    padding-bottom: 3rem;
+  }
+  
+  .blog-header {
+    text-align: center;
+    padding: 3rem 1rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #355C7D 0%, #6C5B7B 50%, #C06C84 100%);
+    color: white;
+  }
+  
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .post-grid-item {
+    display: flex;
+    height: 100%;
+  }
+  
+  /* 分类过滤器 */
+  .category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+  }
+  
+  .category-filter-button {
+    background-color: #f8f8f8;
+    color: #355C7D;
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #eaeaea;
+  }
+  
+  .category-filter-button:hover {
+    background-color: #F67280;
+    color: white;
+    border-color: #F67280;
+    transform: translateY(-2px);
+  }
+  
+  .category-filter-button.active {
+    background-color: #F67280;
+    color: white;
+    border-color: #F67280;
+  }
+  
+  /* 写作按钮 */
+  .write-post-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+  }
+  
+  .write-post-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* 分页控件 */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  
+  .pagination-numbers {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .pagination-button {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .pagination-button:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .pagination-button.active {
+    background-color: #F67280;
+    color: white;
+    border-color: #F67280;
+  }
+  
+  .pagination-ellipsis {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+  }
+  
+  .pagination-arrow {
+    background-color: white;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .pagination-arrow:hover:not(:disabled) {
+    background-color: #f5f5f5;
+  }
+  
+  .pagination-arrow:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* 空状态 */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem;
+    text-align: center;
+  }
+  
+  .empty-state-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+  
+  .empty-state h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #355C7D;
+  }
+  
+  .empty-state p {
+    color: #888;
+    max-width: 400px;
+  }
+  
+  /* 错误消息 */
+  .error-message {
+    text-align: center;
+    padding: 2rem;
+    color: #e74c3c;
+  }
+  
+  /* 响应式调整 */
+  @media (max-width: 768px) {
+    .posts-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .category-filter {
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      justify-content: start;
+      flex-wrap: nowrap;
+    }
+  
+    .pagination {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
