@@ -57,7 +57,7 @@ api.interceptors.response.use(
 );
 
 // 封装API请求
-export const blogApi = {
+export const apiService = {
   // 用户认证
   login: (credentials) => api.post('/login/', credentials),
   register: (userData) => api.post('/register/', userData),
@@ -71,13 +71,28 @@ export const blogApi = {
   refreshToken: (refresh) => api.post('/token/refresh/', { refresh }),
   
   // 获取博客文章列表
-  getPosts: (page = 1) => api.get(`/posts/?page=${page}`),
+  getPosts: (page = 1, pageSize = 10) => api.get(`/posts/?page=${page}&page_size=${pageSize}`),
 
   // 获取单篇文章详情
-  getPost: (id) => api.get(`/posts/${id}/`),
-
+  getPost: (slug) => api.get(`/posts/${slug}/`),
+  
+  // 添加缺少的博客文章API
+  createPost: (postData) => api.post('/posts/', postData),
+  updatePost: (slug, postData) => api.put(`/posts/${slug}/`, postData),
+  deletePost: (slug) => api.delete(`/posts/${slug}/`),
+  
   // 获取分类列表
   getCategories: () => api.get('/categories/'),
+  
+  // 添加缺少的标签API
+  getTags: () => api.get('/tags/'),
+  
+  // 添加按分类和标签查询的API
+  getPostsByCategory: (slug, page = 1) => api.get(`/posts/by-category/${slug}/?page=${page}`),
+  getPostsByTag: (slug, page = 1) => api.get(`/posts/by-tag/${slug}/?page=${page}`),
+  
+  // 添加获取最新文章的API
+  getLatestPosts: () => api.get('/posts/latest/'),
 };
 
 // 身份验证工具函数

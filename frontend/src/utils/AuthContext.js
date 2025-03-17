@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { blogApi, authUtils } from '../services/api';
+import { apiService, authUtils } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 // 创建认证上下文
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     const initAuth = async () => {
       if (authUtils.isAuthenticated()) {
         try {
-          const response = await blogApi.getCurrentUser();
+          const response = await apiService.getCurrentUser();
           setUser(response.data);
         } catch (err) {
           console.error('加载用户信息失败:', err);
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     setError(null);
     try {
-      const response = await blogApi.login(credentials);
+      const response = await apiService.login(credentials);
       authUtils.setAuthTokens(response.data.access, response.data.refresh);
       setUser(response.data.user);
       return true;
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     setError(null);
     try {
-      await blogApi.register(userData);
+      await apiService.register(userData);
       // 自动登录
       return await login({
         username: userData.username,
@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
   // 登出处理
   const logout = async () => {
     try {
-      await blogApi.logout();
+      await apiService.logout();
     } catch (err) {
       console.error('登出API调用失败', err);
     } finally {
@@ -84,7 +84,7 @@ export const AuthProvider = ({ children }) => {
   const resetPassword = async (email) => {
     setError(null);
     try {
-      await blogApi.resetPassword(email);
+      await apiService.resetPassword(email);
       return true;
     } catch (err) {
       setError(err.response?.data?.detail || '密码重置请求失败。请稍后再试。');
@@ -96,7 +96,7 @@ export const AuthProvider = ({ children }) => {
   const resetPasswordConfirm = async (data) => {
     setError(null);
     try {
-      await blogApi.resetPasswordConfirm(data);
+      await apiService.resetPasswordConfirm(data);
       return true;
     } catch (err) {
       setError(err.response?.data?.detail || '密码重置失败。请稍后再试。');
