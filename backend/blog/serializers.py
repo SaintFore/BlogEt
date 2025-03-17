@@ -47,3 +47,10 @@ class PostDetailSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'slug', 'author', 'content', 'summary',
                   'created_at', 'updated_at', 'published_at', 'status',
                   'category', 'tags', 'view_count']
+        
+class PostCreateUpdateSerializer(serializers.ModelSerializer):
+    """文章创建和更新序列化器"""
+    class Meta:
+        model = Post
+        fields = ['title', 'slug', 'content', 'summary', 'status', 'category', 
+                  'tags', 'published_at']
