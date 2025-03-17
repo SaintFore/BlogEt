@@ -21,9 +21,24 @@ function BlogList() {
   const fetchCategories = async () => {
     try {
       const response = await apiService.getCategories();
-      setCategories(response.data);
+
+      // 添加调试日志，查看数据结构
+      console.log('Categories API response:', response);
+
+      // 确保 categories 始终是数组
+      if (response.data && Array.isArray(response.data)) {
+        setCategories(response.data);
+      } else if (response.data && Array.isArray(response.data.results)) {
+        // 如果数据在 results 属性中
+        setCategories(response.data.results);
+      } else {
+        // 如果无法确定数据结构，设置为空数组
+        console.error('Unexpected categories data format:', response.data);
+        setCategories([]);
+      }
     } catch (err) {
       console.error('获取分类失败', err);
+      setCategories([]); // 错误时设置为空数组
     }
   };
 
@@ -36,7 +51,7 @@ function BlogList() {
       } else {
         response = await apiService.getPosts(currentPage);
       }
-      
+
       setPosts(response.data.results);
       setTotalPages(Math.ceil(response.data.count / 10)); // 假设每页10篇文章
       setError(null);
@@ -61,33 +76,33 @@ function BlogList() {
   // 生成分页按钮
   const renderPagination = () => {
     const pages = [];
-    
+
     // 省略号函数
     const ellipsis = (key) => <span key={key} className="pagination-ellipsis">...</span>;
-    
+
     // 始终显示第一页
     pages.push(
-      <button 
-        key={1} 
+      <button
+        key={1}
         onClick={() => handlePageChange(1)}
         className={currentPage === 1 ? 'pagination-button active' : 'pagination-button'}
       >
         1
       </button>
     );
-    
+
     // 显示当前页附近的页码
     let startPage = Math.max(2, currentPage - 1);
     let endPage = Math.min(totalPages - 1, currentPage + 1);
-    
+
     // 添加前部省略号
     if (startPage > 2) pages.push(ellipsis('start-ellipsis'));
-    
+
     // 添加中间页码
     for (let i = startPage; i <= endPage; i++) {
       pages.push(
-        <button 
-          key={i} 
+        <button
+          key={i}
           onClick={() => handlePageChange(i)}
           className={currentPage === i ? 'pagination-button active' : 'pagination-button'}
         >
@@ -95,15 +110,15 @@ function BlogList() {
         </button>
       );
     }
-    
+
     // 添加后部省略号
     if (endPage < totalPages - 1) pages.push(ellipsis('end-ellipsis'));
-    
+
     // 显示最后一页（如果总页数大于1）
     if (totalPages > 1) {
       pages.push(
-        <button 
-          key={totalPages} 
+        <button
+          key={totalPages}
           onClick={() => handlePageChange(totalPages)}
           className={currentPage === totalPages ? 'pagination-button active' : 'pagination-button'}
         >
@@ -111,7 +126,7 @@ function BlogList() {
         </button>
       );
     }
-    
+
     return pages;
   };
 
@@ -127,7 +142,7 @@ function BlogList() {
       <div className="container">
         {/* 分类过滤器 */}
         <div className="category-filter">
-          <button 
+          <button
             className={`category-filter-button ${activeCategory === null ? 'active' : ''}`}
             onClick={() => handleCategoryClick(null)}
           >
@@ -166,24 +181,24 @@ function BlogList() {
                 </div>
               ))}
             </div>
-            
+
             {/* 分页控件 */}
             {totalPages > 1 && (
               <div className="pagination">
-                <button 
-                  className="pagination-arrow" 
+                <button
+                  className="pagination-arrow"
                   disabled={currentPage === 1}
                   onClick={() => handlePageChange(currentPage - 1)}
                 >
                   &larr; 上一页
                 </button>
-                
+
                 <div className="pagination-numbers">
                   {renderPagination()}
                 </div>
-                
-                <button 
-                  className="pagination-arrow" 
+
+                <button
+                  className="pagination-arrow"
                   disabled={currentPage === totalPages}
                   onClick={() => handlePageChange(currentPage + 1)}
                 >
