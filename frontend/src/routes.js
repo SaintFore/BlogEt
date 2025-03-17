@@ -8,6 +8,11 @@ import ResetPassword from './components/auth/ResetPassword/ResetPassword';
 import ResetPasswordConfirm from './components/auth/ResetPasswordConfirm/ResetPasswordConfirm';
 import { useAuth } from './utils/AuthContext';
 
+// 博客相关页面
+import BlogList from './pages/Blog/BlogList';
+import BlogPost from './pages/Blog/BlogPost';
+import BlogEditor from './pages/Blog/BlogEditor';
+
 // 受保护路由组件
 const ProtectedRoute = () => {
   const { isAuthenticated, loading } = useAuth();
@@ -36,16 +41,37 @@ const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
-      // 受保护的路由
+      // 首页 - 公开
+      { index: true, element: <Home /> },
+      
+      // 博客文章列表页 - 公开
+      { path: 'blog', element: <BlogList /> },
+      
+      // 文章详情页 - 公开
+      { path: 'blog/:slug', element: <BlogPost /> },
+      
+      // 分类筛选页面 - 公开
+      { path: 'categories/:slug', element: <BlogList /> },
+      
+      // 标签筛选页面 - 公开
+      { path: 'tags/:slug', element: <BlogList /> },
+      
+      // 需要登录才能访问的路由
       {
         element: <ProtectedRoute />,
         children: [
-          { index: true, element: <Home /> },
-          // 这里可以添加更多需要登录才能访问的路由
+          // 创建文章页
+          { path: 'blog/create', element: <BlogEditor /> },
+          
+          // 编辑文章页
+          { path: 'blog/edit/:slug', element: <BlogEditor /> },
+          
+          // 后续可添加用户仪表盘等需要认证的页面
+          // { path: 'dashboard', element: <Dashboard /> },
         ]
       },
       
-      // 不需要登录即可访问的路由
+      // 只有未登录用户可以访问的路由
       {
         element: <AuthRoute />,
         children: [
